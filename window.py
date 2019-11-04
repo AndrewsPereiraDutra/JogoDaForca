@@ -4,13 +4,11 @@ import cores
 
 cores = cores.cores()
 
-class window(object):
+class windows():
     def __init__(self,xwindow,ywindow,title,background,music,music_status,music_img,img_pos):
         os.environ['SDL_VIDEO_CENTERED'] = '1' #Centralizar a janela do game
-        pygame.init()                          #Inicializa o PyGame 
-        
-        #Cria tudo dentro da tela
-        
+        pygame.init()                         #Inicializa o PyGame 
+        #Cria tudo dentro da tela        
         self.xwindow = xwindow
         self.ywindow = ywindow
         self.title = title
@@ -22,7 +20,8 @@ class window(object):
         self.window = pygame.display.set_mode([self.xwindow,self.ywindow])
         pygame.display.set_caption(self.title)
         self.window.blit(self.background,self.img_pos) # Pra imagem ser colocada na tela (PREENCHER) blit é imagem, fill é cor
-
+    def set_background(self):
+        self.background = background
 
 
         

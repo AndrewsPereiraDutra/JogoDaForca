@@ -2,46 +2,47 @@ import pygame
 import window
 import imagens
 import cores
-import game
+import jogo
+
 imagens = imagens.imagens()
 cores = cores.cores()
-class menu(object):
-    def __init__(self):
-        self.xwindow = 800
-        self.ywindow = 600
-        self.title = "Jogo"
-        self.background = imagens.menu       #diretorio da imagem (imagens.menu)
-        self.music = 0                       #diretorio da musica
-        self.music_status = 0                #True or false
-        self.music_img = 0                   #imagens.musica
-        self.img_pos = (0,0)                 # Estenda a imagem da posição zero X e zero Y
-        self.frames = pygame.time.Clock()    #fps (cria um objeto para ajudar a controlar o tempo)
-        self.window = window.window(self.xwindow,self.ywindow,self.title,self.background,self.music,self.music_status,self.music_img,self.img_pos)
-    
-        self.RunOn = True 
-        #Main Loop
-        while self.RunOn:
-            self.frames.tick(27)
-            for event in pygame.event.get():
-                if (event.type == pygame.QUIT): #Sair
-                    self.RunOn = False
-                elif (event.type == pygame.MOUSEBUTTONDOWN):
-                    (self.xMouse,self.yMouse) = event.pos #Posiçao do mouse eixo X e Y
-                    print("x: "+str(self.xMouse))
-                    print("y: "+str(self.yMouse))
-                    if (self.xMouse >= 251 and self.xMouse <= 548):
-                        if (self.yMouse >= 179 and self.yMouse <= 244):
-                           verificacao.get_ok()
-                           self.RunOn = False 
+
+def menu():
+    xwindow = 800
+    ywindow = 600
+    title = "Jogo"
+    background = imagens.menu       #diretorio da imagem (imagens.menu)
+    music = 0                       #diretorio da musica
+    music_status = 0                #True or false
+    music_img = 0                   #imagens.musica
+    img_pos = (0,0)                 # Estenda a imagem da posição zero X e zero Y
+    frames = pygame.time.Clock()    #fps (cria um objeto para ajudar a controlar o tempo)
+    window_menu = window.windows(xwindow,ywindow,title,background,music,music_status,music_img,img_pos)
+
+    RunOn = True 
+    #Main Loop
+    while RunOn:
+        frames.tick(27)
+        for event in pygame.event.get():
+            if (event.type == pygame.QUIT): #Sair
+                RunOn = False
+            elif (event.type == pygame.MOUSEBUTTONDOWN):
+                (xMouse,yMouse) = event.pos #Posiçao do mouse eixo X e Y
+                print("x: "+str(xMouse))
+                print("y: "+str(yMouse))
+                if (xMouse >= 251 and xMouse <= 548):
+                    if (yMouse >= 179 and yMouse <= 244):
+                        jogo.main_game()                         
+                        RunOn = False 
 
 
-                        if (self.yMouse >= 299 and self.yMouse <= 369):
-                           print("ok") 
+                    if (yMouse >= 299 and yMouse <= 369):
+                        print("ok") 
 
-                        if (self.yMouse >= 421 and self.yMouse <= 489):
-                            self.RunOn = False
+                    if (yMouse >= 421 and yMouse <= 489):
+                        RunOn = False
 
-            pygame.display.update()
+        pygame.display.update()
 
 menu()
 
