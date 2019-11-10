@@ -17,7 +17,8 @@ def menu():
     music_img = 0                   #imagens.musica
     img_pos = (0,0)                 # Estenda a imagem da posição zero X e zero Y
     frames = pygame.time.Clock()    #fps (cria um objeto para ajudar a controlar o tempo)
-    window_menu = window.windows(xwindow,ywindow,title,background,music,music_status,music_img,img_pos)
+    window.windows(xwindow,ywindow,title,background,music,music_status,music_img,img_pos)
+    #background = imagens.imagensMenu()
 
     RunOn = True 
     #Main Loop

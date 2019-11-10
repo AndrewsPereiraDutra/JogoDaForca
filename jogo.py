@@ -2,10 +2,9 @@ import pygame
 import window
 import imagens
 import musicas
+import cores
 import random #biblioteca randômica
-
-
-
+ 
 class jogador():
     def __init__(self,letras_chutadas):
         self.letras_chutadas = letras_chutadas
@@ -114,6 +113,8 @@ def main_game():
 
 # obejto palavra na tela
 # classe jogo...palavra atual e pontuacao
+'''janela_jogo = window.windows(800,600,"JOGO",imagens.imagensGame(),0,0,0,0)'''
+
 
 """class game(object):
     def __init__(self):

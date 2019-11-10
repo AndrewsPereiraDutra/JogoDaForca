@@ -20,8 +20,16 @@ class windows():
         self.window = pygame.display.set_mode([self.xwindow,self.ywindow])
         pygame.display.set_caption(self.title)
         self.window.blit(self.background,self.img_pos) # Pra imagem ser colocada na tela (PREENCHER) blit é imagem, fill é cor
-    def set_background(self):
+    def get_background(self):
+        return(self.background)
+    def set_background(self,background):
         self.background = background
+        self.window.blit(self.background,self.img_pos) # Pra imagem ser colocada na tela (PREENCHER) blit é imagem, fill é cor
+        
+    def get_musica(self,music):
+        return(self.music)
+    def set_musica(self,music):
+        self.music = music
 
 
         
