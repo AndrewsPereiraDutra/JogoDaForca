@@ -4,7 +4,9 @@ import cores
 
 cores = cores.cores()
 
-class windows():
+
+
+'''class windows():
     def __init__(self,xwindow,ywindow,title,background,music,music_status,music_img,img_pos):
         os.environ['SDL_VIDEO_CENTERED'] = '1' #Centralizar a janela do game
         pygame.init()                         #Inicializa o PyGame 
@@ -20,6 +22,7 @@ class windows():
         self.window = pygame.display.set_mode([self.xwindow,self.ywindow])
         pygame.display.set_caption(self.title)
         self.window.blit(self.background,self.img_pos) # Pra imagem ser colocada na tela (PREENCHER) blit é imagem, fill é cor
+        self.window.fill((cores.branco)) #colocar cor
     def get_background(self):
         return(self.background)
     def set_background(self,background):
@@ -29,7 +32,7 @@ class windows():
     def get_musica(self,music):
         return(self.music)
     def set_musica(self,music):
-        self.music = music
+        self.music = music'''
 
 
         

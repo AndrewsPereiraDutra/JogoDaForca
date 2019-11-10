@@ -1,9 +1,11 @@
 import pygame 
-import window
 import imagens
 import musicas
 import cores
+import janela
 import random #biblioteca randômica
+
+imagens = imagens.imagens()
  
 class jogador():
     def __init__(self,letras_chutadas):
@@ -39,81 +41,107 @@ class boneco():
         self.partes_corpo = corpo
 
 def main_game():
-    print("Entrou")
-    lista=[]
-    arquivo=open("palavras.txt", "r") #arquivo com as palavras para escolher
-    for i in arquivo:
-        i=i.strip()
-        lista.append(i)
-    palavra_escolhida = palavra(random.choice(lista))#objeto palavra escolhida
-    arquivo.close()
-
-    word=[]
-    for i in palavra_escolhida.getpalavras_descobrir():
-        i=i.upper()
-        word.append(i)
-    print(word)#print provisório para ver a palavra escolhida pela biblioteca random
-
-    boneco_atual = boneco("")
-    partes_boneco = ["Cabeça","Tronco","Braço direito", "Braço esquerdo","Perna direita","Perna esquerda"] #lista das partes do corpo para eliminação
-
-
-    print("")
-    print("*_____Jogo da Forca_____*")
-    print("")
-
-    descoberta = []
-    for i in range (0,len(word)):
-        descoberta.append("__ ")
-
-    digitadas = []
-    letras_chutadas_jogo = jogador("")
-    acertou = False #condição booleana para terminar o jogo
-    while acertou == False:
-        print("")
-        letras_chutadas_jogo.chute_letras()
-        letras_chute = letras_chutadas_jogo.getletras_chutadas().upper()
-        if letras_chute not in digitadas:
-            digitadas.append(letras_chute)
+    frames = pygame.time.Clock()
+    janela.janela(imagens.game,0,0)
+    lista = []
+    x = 319 # letras digitadas na palavra
+    desenharp = True 
+    x2 = 319  #letras digitadas
+    desenhar2p = True 
+    while True:
+        frames.tick(27)
+        if desenharp:        
+            for i in range (0,5):
+                janela.redraw(imagens.traco,x,500)
+                x = x + 60
+            desenharp = False  
         else:
-            while letras_chute in digitadas:
-                letras_chutadas_jogo.chute_letras_repetido()
-                letras_chute = letras_chutadas_jogo.getletras_chutadas().upper()
-            digitadas.append(letras_chute)   
+            x = 0
+
+        if desenhar2p:
+            for j in range(0,5):
+                janela.redraw(imagens.traco,x2,100)   
+                x2 = x2 + 60
+            desenhar2p = False
+        else:
+            x2 = 0
+
+        
+
+        arquivo=open("palavras.txt", "r") #arquivo com as palavras para escolher
+        for i in arquivo:
+            i=i.strip()
+            lista.append(i)
+        palavra_escolhida = palavra(random.choice(lista))#objeto palavra escolhida
+        arquivo.close()
+
+        word=[]
+        for i in palavra_escolhida.getpalavras_descobrir():
+            i=i.upper()
+            word.append(i)
+        print(word)#print provisório para ver a palavra escolhida pela biblioteca random
+
+        boneco_atual = boneco("")
+        partes_boneco = ["Cabeça","Tronco","Braço direito", "Braço esquerdo","Perna direita","Perna esquerda"] #lista das partes do corpo para eliminação
+
+
         print("")
-        print("Letras Digitadas")
-        for i in range(0,len(digitadas)):
-            print(digitadas[i], end=" ")
-        print("\n")
-        cont=0
+        print("*_____Jogo da Forca_____*")
+        print("")
+
+        descoberta = []
         for i in range (0,len(word)):
-            if letras_chute == word[i]:
-                descoberta[i] = letras_chute
-                cont=cont+1
-            print(descoberta[i], end="")
-        print("")
-        acertou = True
-        
-        for i in range (0,len(descoberta)):
-            if descoberta[i] == "__ ":
-                acertou = False
+            descoberta.append("__ ")
 
-        if cont == 0:
-            boneco_atual.setcorpo_boneco(partes_boneco[0])
-            print("Você errou!!! Coloca a "+boneco_atual.getcorpo_boneco()+" na forca")
+        digitadas = []
+        letras_chutadas_jogo = jogador("")
+        acertou = False #condição booleana para terminar o jogo
+        while acertou == False:
+            print("")
+            letras_chutadas_jogo.chute_letras()
+            letras_chute = letras_chutadas_jogo.getletras_chutadas().upper()
+            if letras_chute not in digitadas:
+                digitadas.append(letras_chute)
+            else:
+                while letras_chute in digitadas:
+                    letras_chutadas_jogo.chute_letras_repetido()
+                    letras_chute = letras_chutadas_jogo.getletras_chutadas().upper()
+                digitadas.append(letras_chute)   
+            print("")
+            print("Letras Digitadas")
+            for i in range(0,len(digitadas)):
+                print(digitadas[i], end=" ")
+            print("\n")
             cont=0
-            partes_boneco.pop(0)
-            if len(partes_boneco) == 0:
-                print("GameOver!!!")
-                acertou = True
-        
-        if "__ " not in descoberta:
-            print("Parabéns Você Ganhou!!! ")
+            for i in range (0,len(word)):
+                if letras_chute == word[i]:
+                    descoberta[i] = letras_chute
+                    cont=cont+1
+                print(descoberta[i], end="")
+            print("")
+            acertou = True
+            
+            for i in range (0,len(descoberta)):
+                if descoberta[i] == "__ ":
+                    acertou = False
+
+            if cont == 0:
+                boneco_atual.setcorpo_boneco(partes_boneco[0])
+                print("Você errou!!! Coloca a "+boneco_atual.getcorpo_boneco()+" na forca")
+                cont=0
+                partes_boneco.pop(0)
+                if len(partes_boneco) == 0:
+                    print("GameOver!!!")
+                    acertou = True
+            
+            if "__ " not in descoberta:
+                print("Parabéns Você Ganhou!!! ")
 
 
-# obejto palavra na tela
-# classe jogo...palavra atual e pontuacao
-'''janela_jogo = window.windows(800,600,"JOGO",imagens.imagensGame(),0,0,0,0)'''
+
+# objeto palavra na tela
+# classe jogo...palavra atual e pontuação
+
 
 
 """class game(object):
@@ -142,14 +170,10 @@ def main_game():
 
             pygame.display.update()"""
 
+
     
     
 
 # Criar uma classe JOGO para verificar se o jogo terminou, pontuação 
 # Criar uma classe BONECO para modelar (quantidade de partes do corpo)
 # Criar uma classe PALAVRA para pegar a palavra aleatória
-
-    
-
-    
-    
