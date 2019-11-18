@@ -4,14 +4,17 @@ import images
 import music
 import superficie
 import time
+import random
 imagens = images.images()
 sup = superficie.superficie()
 musica = music.music()
+
 
 class game():
     def __init__(self):
         self.window = window.window(800,600,"Jogo",imagens.back,musica.menu,0)
         self.window.setBack(imagens.back,(0,0))
+        self.fonte = pygame.font.SysFont("comicsans",22,True)
         self.main()
     def main(self):
         RunOn = True 
@@ -22,7 +25,18 @@ class game():
         desenharp = True
         x = 350
         self.window.music_on(esta_tocando,musica.menu)
+        restart = True
         while RunOn:
+            if restart:
+                lista=[]
+                arquivo=open("palavras.txt", "r") #arquivo com as palavras para escolher
+                for i in arquivo:
+                    i=i.strip()
+                    lista.append(i)
+                palavra_escolhida = random.choice(lista) #método para escolha aleatória na lista
+                arquivo.close()
+                restart = False
+                text = self.fonte.render(palavra_escolhida,1,(255,0,0))
             frames.tick(30)
             for event in pygame.event.get():
                 if (event.type == pygame.QUIT):
@@ -37,7 +51,7 @@ class game():
                             esta_tocando = True 
                             sound = imagens.soundOn
                         self.window.music_on(esta_tocando,musica.menu)
-                elif (event.type == pygame.KEYDOWN):
+                elif (event.type == pygame.KEYDOWN):                    
                     if (event.key == pygame.K_ESCAPE):                        
                         while esc_down:
                             self.window.setBackSup(sup.menuEsc,imagens.menuEsc,(0,0)) #posição da imagem dentro da superficie
@@ -61,19 +75,28 @@ class game():
                                 if (event.type == pygame.KEYDOWN):
                                     if (event.key == pygame.K_ESCAPE):
                                         esc_down = False
+
                             pygame.display.update()
                         esc_down = True
+                    else:
+                        letra = self.fonte.render(chr(event.key),1,(255,0,0))
+                        self.window.desenharTexto(letra,self.window,500,50)
+                pygame.display.update()
+                       
                    
             self.window.redraw(imagens.back,sound,self.window)
+            #self.window.desenharTexto(text,self.window,200,50)
+            
             if desenharp:
-                for i in range(0, 5):       
+                for i in range(0,6):       
                     self.window.desenha_traco(imagens.traco, x, self.window)
                     x += 60
-                desenharp = False  
+                desenharp = False 
+                pygame.display.update() 
             else:
                 x = 350
                 desenharp = True
-            pygame.display.update()
+               
             
             
 

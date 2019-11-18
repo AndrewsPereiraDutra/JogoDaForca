@@ -27,6 +27,7 @@ class window:
     def setBackSup(self,sup_nome,sup_back,sup_back_pos):
         sup_nome.fill((255,255,255))
         sup_nome.blit(sup_back,sup_back_pos)
+    
     def music_on(self,music_stats,music):
         if music_stats:
             pygame.mixer.music.load(music)
@@ -38,10 +39,17 @@ class window:
         window.setBack(img,(0,0))
         window.setBackSup(sup.sound,imgSound,(0,0)) #posição da imagem dentro da superficie
         window.superficie(sup.sound,(750,0))
+    
+    #def redraw_texto(self,texto,window):
+        #window.setBack(texto,(200,50))
+    def desenharTexto(self,texto,window,x,y):
+        self.window.blit(texto,(x,y))
+        
 
     def desenha_traco(self, img, pos, wind):
         x = pos
         self.window.blit(img,(x, 500))
+        
         
     
 
