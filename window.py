@@ -42,6 +42,7 @@ class window:
     
     #def redraw_texto(self,texto,window):
         #window.setBack(texto,(200,50))
+    
     def desenharTexto(self,texto,window,x,y):
         self.window.blit(texto,(x,y))
         

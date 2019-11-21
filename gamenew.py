@@ -10,7 +10,7 @@ sup = superficie.superficie()
 musica = music.music()
 
 
-class game():
+class gamenew():
     def __init__(self):
         self.window = window.window(800,600,"Jogo",imagens.back,musica.menu,0)
         self.window.setBack(imagens.back,(0,0))
@@ -30,10 +30,14 @@ class game():
         letra = []
         letra.append(self.fonte.render("",1,(255,0,0)))
         cont = 13
+        text1 = self.fonte.render('',1,(255,0,0))
         a = 1
+        dig = []
+        existe = False
+        let = ''
         full = []
-        letras_certas_palavra = []
-        con = 0
+        letras_digitadas_palavra = []
+        letras_certas = []
         while RunOn:
             if restart:
                 lista=[]
@@ -42,13 +46,10 @@ class game():
                     i=i.strip()
                     lista.append(i)
                 palavra_escolhida = random.choice(lista) #método para escolha aleatória na lista
-                for i in range (0,len(palavra_escolhida)):
-                    pos_letra_certa.append(0)
                 arquivo.close()
                 restart = False
                 text = self.fonte.render(palavra_escolhida,1,(255,0,0))
-                for z in range(0, len(palavra_escolhida)):
-                    letras_certas_palavra.append("___")
+
             frames.tick(30)
             for event in pygame.event.get():
                 if (event.type == pygame.QUIT):
@@ -93,12 +94,10 @@ class game():
                         letra.append(self.fonte.render(chr(event.key),1,(255,0,0)))
                         let = chr(event.key)
                         # EXATAMENTE AQUI: verificar  se chr(event.key) existe dentro da palavra escolhida, se sim, existe == True
-                        for i in range(0, len(palavra_escolhida)):
-                            if (let in palavra_escolhida[i]):
-                                existe = True
-                                letras_certas_palavra[i] = let
-                            else:
-                                existe = False
+                        if (chr(event.key) in palavra_escolhida):
+                            existe = True
+                        else:
+                            existe = False
                         a =+ 1
                         #self.window.desenharTexto(letra,self.window,500,50)
                         pygame.display.update()
@@ -111,10 +110,3 @@ class game():
                 cont += 26
             if (cont != (26*(len(palavra_escolhida)))):
                 cont = 1
-            
-            for y in letras_certas_palavra:
-                t = self.fonte.render(y,1,(255,0,0))
-                self.window.desenharTexto(t,self.window, 300 + con, 400)
-                con += 60
-            con = 0
-            pygame.display.update()

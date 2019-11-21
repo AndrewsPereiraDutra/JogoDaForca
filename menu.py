@@ -5,7 +5,7 @@ import superficie
 import music
 import game
 imagens = images.images()
-sup = superficie.superficie()
+sup =  superficie.superficie()
 musica = music.music()
 
 
@@ -54,10 +54,4 @@ class menu():
                 
             pygame.display.update()
                             
-
-                        
-
-                        
-
-
 menu()
