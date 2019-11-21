@@ -30,10 +30,9 @@ class game():
         letra = []
         letra.append(self.fonte.render("",1,(255,0,0)))
         cont = 13
-        a = 1
-        full = []
         letras_certas_palavra = []
         con = 0
+        cont_erro = 0
         while RunOn:
             if restart:
                 lista=[]
@@ -96,17 +95,24 @@ class game():
                         for i in range(0, len(palavra_escolhida)):
                             if (let in palavra_escolhida[i]):
                                 existe = True
-                                letras_certas_palavra[i] = let
+                                maius = let.upper()
+                                letras_certas_palavra[i] = maius
+                                
                             else:
                                 existe = False
-                        a =+ 1
+                        if not(existe):
+                            cont_erro += 1
+                            print(cont_erro)
+                        #if (cont == 1):
+
+
                         #self.window.desenharTexto(letra,self.window,500,50)
                         pygame.display.update()
                        
                    
             self.window.redraw(imagens.back,sound,self.window)
             self.window.desenharTexto(text,self.window,200,50) #mostrando a palavra escolhida
-            for i in range(a-1, len(letra)): #letras digitadas
+            for i in range(0, len(letra)): #letras digitadas
                 self.window.desenharTexto(letra[i],self.window,500 + cont,50)
                 cont += 26
             if (cont != (26*(len(palavra_escolhida)))):
@@ -117,4 +123,5 @@ class game():
                 self.window.desenharTexto(t,self.window, 300 + con, 400)
                 con += 60
             con = 0
+ 
             pygame.display.update()
