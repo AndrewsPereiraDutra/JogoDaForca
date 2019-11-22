@@ -47,9 +47,8 @@ class window:
         self.window.blit(texto,(x,y))
         
 
-    def desenha_traco(self, img, pos, wind):
-        x = pos
-        self.window.blit(img,(x, 500))
+    def desenha(self, img,x,y):
+        self.window.blit(img,(x,y))
         
         
     

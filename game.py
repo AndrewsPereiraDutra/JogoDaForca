@@ -54,6 +54,7 @@ class game():
                     RunOn = False
                 elif (event.type == pygame.MOUSEBUTTONDOWN):
                     (mouseX,mouseY) = event.pos
+                    print(mouseX,mouseY)
                     if ((mouseX >= 750) and (mouseX <= 800)) and ((mouseY>= 0) and (mouseY <= 50)):
                         if esta_tocando:
                             esta_tocando = False
@@ -98,12 +99,13 @@ class game():
                                 maius = let.upper()
                                 letras_certas_palavra[i] = maius
                                 
-                            else:
-                                existe = False
-                        if not(existe):
+                        if (let not in palavra_escolhida):
+                            cont_erro = cont_erro + 1
+                            
+                        '''if not(existe):
                             cont_erro += 1
-                            print(cont_erro)
-                        #if (cont == 1):
+                            print(cont_erro)'''
+                        
 
 
                         #self.window.desenharTexto(letra,self.window,500,50)
@@ -112,6 +114,10 @@ class game():
                    
             self.window.redraw(imagens.back,sound,self.window)
             self.window.desenharTexto(text,self.window,200,50) #mostrando a palavra escolhida
+            #  COLOCAR OS RESPECTIVOS CONTS, E PARA CADA UM DELES IMAGEM, MUDANDO SO O NOME NA HORA DE CHAMAR ELA
+            if (cont_erro >= 1):
+                self.window.desenha(imagens.cabeca, 213 - 65,312)
+                #pygame.display.update()
             for i in range(0, len(letra)): #letras digitadas
                 self.window.desenharTexto(letra[i],self.window,500 + cont,50)
                 cont += 26
